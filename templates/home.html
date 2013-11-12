@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>PiEasyAdmin: Step {{ step }}</title>
+<link href="/static/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<script src="/static/js/jquery-1.10.2.min.js"></script>
+{% if not step == 'reboot' %}
+<script src="/static/js/main.js"></script>
+{% endif %}
+<link href="/static/css/screen.css" rel="stylesheet" type="text/css"/>
+<script>
+{% if step == 'reboot' %}
+var offline = false;
+
+$.ajaxSetup({timeout: 1000});
+
+function check() {
+    $.get( "/get_internet_status/", function() {
+      if (offline == true)
+          window.location.replace("/");
+    })
+      .fail(function() {
+        offline = true;
+      })
+}
+
+$(function() {
+setInterval('check()',10000);
+});
+{% else %}
+{% if running_status == 'reset to factory settings' %}
+var offline = false;
+
+function check() {
+    $.get( "/get_internet_status/", function() {
+      if (offline == true)
+          window.location.replace("/");
+    })
+      .fail(function() {
+        offline = true;
+      })
+}
+
+$(function() {
+   $.get("/reset_to_factory_settings/");
+   setInterval('check()',1000);
+});
+{% else %}
+{% if step == 2 %}
+var offline = false;
+
+function check() {
+    $.get( "/get_internet_status/", function() {
+      if (offline == true)
+          window.location.replace("/");
+    })
+      .fail(function() {
+        offline = true;
+      })
+}
+
+$(function() {
+   $.post("/step_2/", {'username': '{{ username }}', 'password': '{{ password }}'});
+   setInterval('check()',1000);
+});
+{% endif %}
+{% endif %}
+{% endif %}
+</script>
+</head>
+<body>
+<p class="devtodo" style="bottom:20px; right:0; font-size:.8em; position:fixed; "><strong>Development to do:</strong> Make popups for Reboot and Reset to factory settings to prevent accidental resets</p>
+<div id="container">
+<h1>Setup Your <img src="/static/images/Raspi_Colour_R.png" height="23" /> Raspberry Pi with PiEasyAdmin</h1>
+<img src="/static/images/raspberrypitransparent.png" />
+
+{% if running_status == 'reset to factory settings' %}
+<h2>Your Pi is resetting to factory settings</h2>
+<p>In about two minutes the "SetupRaspberryPi" access point should be listed again. Connect to it and this page should refresh to the main setup page.</p>
+{% else %}
+{% if step == 1 %}
+<h2>Step 1. Set username and password</h2>
+<p>Your username and password will let you login to your Raspberry Pi.</p>
+<p class="devtodo"><strong>Development to do:</strong> Implement client-side input validation</p>
+<form action="/" method="post">
+<div style="margin:0 auto; text-align:center; width:600px;">
+<table>
+<tr><th><strong>Username:</strong></th><td> <input type="text" name="username" /><br/></td></tr>
+<tr><td colspan="2">Your password needs to be 8-16 characters long</td></tr>
+<tr><th><strong>Password:</strong></th><td> <input type="password" name="password" /><br/></td></tr>
+<tr><th><strong>Confirm password:</strong></th><td> <input type="password" name="confirm_password" /></td></tr>
+<tr class="button"><td colspan="2"><input type="submit" value="Set username and password" style="width:100%;text-align:center;" /></td></tr>
+</table>
+</div>
+</form>
+{% else %}
+{% if step == 'reboot' %}
+Your Pi is rebooting.
+{% else %}
+{% if step == 3 %}
+<h2>Step 3. Connect to the internet</h2>
+<input type="button" value="Connect via Wifi" /><input type="button" value="Connect via Ethernet" /><input type="button" value="Don't connect" id="dont_connect"/>
+{% else %}
+{% if step == 4 %}
+<h2>Step 4. Set basic settings</h2>
+<form action="/" method="post">
+<table>
+<tr><th>Boot up GUI</th><td><input type="checkbox" /></td></tr>
+<tr><th>Overclock</th><td><input type="checkbox" /></td></tr>
+<tr><th>Keyboard</th><td><select><option>uk</option></select></td></tr>
+<tr><th>Timezone</th><td><select><option>Pacific</option></select></td></tr>
+</table>
+<input type="button" id="save_basic_settings" value="Save these basic settings" />
+</form>
+{% else %}
+<p>Your username and password is set. Your Pi is rebooting.</p>
+<p>In two minutes, connect to the wifi access point called <strong>{{ ssid }}</strong> with the password <strong>{{ passphrase }}</strong>. This page should refresh when you are connected to <strong>{{ ssid }}</strong></p>
+<!--<p>{{ output }}</p>
+<p>{{ command }}</p>-->{% endif %}
+{% endif %}
+{% endif %}
+
+{% endif %}
+{% endif %}
+<!--Ifconfig output:
+{{ ifconfigoutput|linebreaksbr }}-->
+<!--{{ users }}-->
+</div>
+<div id="footer">
+
+<a href="/reset_to_factory_settings_command/" id="reset_to_factory_settings">Reset to factory settings</a>
+<a href="/reboot" id="reboot">Reboot</a>
+<a href="/vitals" id="vitals">Vitals</a>
+<strong>Internet:</strong> <span id="internet_status">{% if is_internet_on %}Online{% else %}Offline{% endif %}</span>
+<strong>Internal IP address:</strong> {{ eth0_ip_address }}
+<strong>External IP address:</strong> {{ external_ip_address }}
+</div>
+
+</body>
+</html>

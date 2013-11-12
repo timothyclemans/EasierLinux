@@ -1,0 +1,207 @@
+@import url('/static/css/reset.css');
+
+body {
+margin-bottom:200px;
+}
+
+#container {
+text-align:center;
+margin-bottom:200px;
+}
+
+h1 {
+font-size:2em;
+color:#000;
+}
+
+.devtodo {
+display:block;
+width:500px;
+margin:0 auto 10px auto;
+padding:10px;
+background:yellow;
+}
+
+h2 {
+font-size:1.5em;
+}
+
+#footer {
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+padding:10px;
+background:#000;
+color:#FFF;
+
+}
+
+h1, p, table {
+margin-bottom:10px;
+}
+
+tr.button {
+padding-top:10px;
+border-top:5px solid #FFF;
+}
+
+body {
+font:1em/1.5 Helvetica, arial, sans-serif;
+margin:10px;
+}
+
+strong {
+font-weight:bold;
+}
+
+.printer_name {
+padding:5px;
+}
+
+.printer_name a:link, .printer_name a:visited {
+color:#FFF;
+}
+
+.printer_name a:hover {
+text-decoration:none;
+}
+
+.printer_status {
+padding:5px;
+}
+.list img {
+width:160px;
+height:120px;
+}
+.list > tr {
+height:120px;
+}
+.printer_name {
+background:#393;
+}
+
+.list {
+width:100%;
+}
+
+.history th {
+background:#DCDCDC;
+font-weight:bold;
+width:100%;
+}
+
+.history th, .history td {
+padding:5px;
+}
+
+#fan_saved {
+padding:5px;
+background:green;
+color:#FFF;
+text-align:center;
+position:absolute;
+top:0;
+left:0;
+width:100%;
+display:none;
+}
+
+table {
+width:400px;
+margin:0 auto;
+border-collapse:collapse;
+}
+td, th {
+vertical-align:top;
+text-align:left;
+}
+td a:link, td a:visited {
+font-weight:bold;
+}
+.status td, .status th {
+text-align:left;
+padding:5px;
+border:1px solid #CCC;
+}
+.temperatures th, .temperatures td {
+padding:5px;
+}
+.status th {
+background:#DCDCDC;
+}
+.list td.image {
+width:160px;
+padding:0;
+}
+.temperatures th {
+font-weight:bold;
+background:green;
+color:#FFF;
+}
+.temperatures {
+float:right;
+}
+#controlboarderror {
+background:red;
+}
+
+input {
+border:1px solid #000;
+}
+
+#internet_status {
+    text-transform: capitalize;
+}
+
+#reset_to_factory_settings:link, #reset_to_factory_settings:visited {
+font-style:italic;
+margin:-10px;
+padding:10px;
+border-left:1px solid #FFF;
+display:block;
+width:200px;
+color:#FFF;
+float:right;
+text-decoration:none;
+}
+
+#reboot:link, #reboot:visited {
+font-style:italic;
+margin:-10px 10px -10px 0;
+padding:10px;
+border-left:1px solid #FFF;
+display:block;
+width:70px;
+color:#FFF;
+float:right;
+text-decoration:none;
+}
+
+#vitals:link, #vitals:visited {
+font-style:italic;
+margin:-10px 0;
+padding:10px;
+border-left:1px solid #FFF;
+display:block;
+width:70px;
+color:#FFF;
+float:right;
+text-decoration:none;
+}
+
+#reset_to_factory_settings:hover {
+background:#6abd37;
+color:#000;
+}
+
+#reboot:hover {
+background:#6abd37;
+color:#000;
+}
+
+#vitals:hover {
+background:#6abd37;
+color:#000;
+}
+
