@@ -70,9 +70,11 @@ $(function() {
 <body>
 <p class="devtodo" style="bottom:20px; right:0; font-size:.8em; position:fixed; "><strong>Development to do:</strong> Make popups for Reboot and Reset to factory settings to prevent accidental resets</p>
 <div id="container">
-<h1>Setup Your <img src="/static/images/Raspi_Colour_R.png" height="23" /> Raspberry Pi with PiEasyAdmin</h1>
+<h1>EasierLinux for {{ system_name }}</h1>
+<h1>Setup Your <img src="/static/images/{{ system_name }}_logo_small.png" height="23" /> {{ system_name }}</h1>
+{% if system_name == 'Raspberry Pi' %}
 <img src="/static/images/raspberrypitransparent.png" />
-
+{% endif %}
 {% if running_status == 'reset to factory settings' %}
 <h2>Your Pi is resetting to factory settings</h2>
 <p>In about two minutes the "SetupRaspberryPi" access point should be listed again. Connect to it and this page should refresh to the main setup page.</p>

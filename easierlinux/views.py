@@ -170,6 +170,8 @@ def timezone(request=None):
 def home(request):
     status = get_status()
     
+
+
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -192,4 +194,9 @@ def home(request):
         context['users'] = users
     except:
         pass
+    system_name = os.popen("lsb_release -a").read()
+    m = re.search('Distributor ID:\s*(?P<name>\w+)', system_name)
+    if m:
+        system_name = m.group('name')
+    context['system_name'] = system_name
     return render_to_response("home.html", context)
